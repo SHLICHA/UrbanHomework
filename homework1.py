@@ -1,0 +1,6 @@
+x = ("Example")
+print(x[0])
+print(x[-1])
+print(x[len(x)//2:len(x)])
+print(x[::-1])
+print(x[1::2])
