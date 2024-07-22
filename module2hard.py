@@ -5,6 +5,7 @@ def create_pass(num):
             if (num % (j+k) == 0) and (j != k):
                 password += f'{j}{k}'
     return password
+
 num = 1
 while num != 0:
     num = int(input("Введите число (от 3 до 20). Для выхода введите 0: "))
