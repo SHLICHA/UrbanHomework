@@ -36,16 +36,16 @@ class UrTube():
     def watch_video(self, title):
         if self.current_user:
             video = [video for video in self.videos if title == video.title]
-            if video[0].adult_mode:
-                if self.current_user.age >= 18:
+            if video:
+                if video[0].adult_mode and self.current_user.age < 18:
+                    print("Вам нет 18 лет, пожалуйста покиньте страницу")
+                else:
                     for t in range(1, video[0].duration):
                         video[0].time_now = t
                         print(video[0].time_now, end=" ")
                         sleep(1)
                     print("Конец видео")
                     video[0].time_now = 0
-                else:
-                    print("Вам нет 18 лет, пожалуйста покиньте страницу")
         else:
             print("Войдите в аккаунт, чтобы смотреть видео")
 
@@ -92,4 +92,4 @@ ur.register('vasya_pupkin', 'F8098FM8fjm9jmi', 55)
 print(ur.current_user)
 
 # Попытка воспроизведения несуществующего видео
-#ur.watch_video('Лучший язык программирования 2024 года!')
+ur.watch_video('Лучший язык программирования 2024 года!')
