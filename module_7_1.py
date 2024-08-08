@@ -13,6 +13,7 @@ class Product:
 
 class Shop:
     __file_name = 'products.txt'
+
     def get_products(self):
         file = open(self.__file_name, 'r')
         products = file.read()
