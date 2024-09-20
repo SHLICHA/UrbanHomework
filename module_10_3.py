@@ -4,11 +4,10 @@ from time import sleep
 
 
 class Bank:
-    balance: int = 0
     lock = Lock()
 
     def __init__(self):
-        pass
+        self.balance: int = 0
 
     def deposit(self):
         for i in range(100):
