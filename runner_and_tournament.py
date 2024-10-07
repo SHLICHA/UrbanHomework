@@ -25,7 +25,11 @@ class Tournament:
         self.full_distance = distance
         self.participants = list(participants)
 
-    def start(self):
+    def start(self) -> object:
+        """
+
+        :rtype: object
+        """
         finishers = {}
         place = 1
         while self.participants:
