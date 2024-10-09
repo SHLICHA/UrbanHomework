@@ -24,7 +24,7 @@ class RunnerTest(unittest.TestCase):
             self.assertEqual(walker.distance, 50)
             logging.info('"test_walk" выполнен успешно')
         except:
-            logging.warning('Неверная скорость для Runner')
+            logging.warning('Неверная скорость для Runner', exc_info=True)
 
     @unittest.skipIf(is_frozen, 'Тесты в этом кейсе заморожены')
     def test_run(self):
@@ -35,7 +35,7 @@ class RunnerTest(unittest.TestCase):
             self.assertEqual(runner.distance, 100)
             logging.info('"test_run" выполнен успешно')
         except:
-            logging.warning('Неверный тип данных для объекта Runner')
+            logging.warning('Неверный тип данных для объекта Runner', exc_info=True)
 
     @unittest.skipIf(is_frozen, 'Тесты в этом кейсе заморожены')
     def test_challenge(self):
