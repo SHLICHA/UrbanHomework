@@ -9,6 +9,11 @@ api = TOKEN_BY_TELEGRAM
 bot = Bot(token=api)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
+keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+button_1 = KeyboardButton('Рассчитать')
+button_2 = KeyboardButton('Информация')
+keyboard.row(button_1, button_2)
+
 
 class UserState(StatesGroup):
     age = State()
@@ -18,16 +23,12 @@ class UserState(StatesGroup):
 
 @dp.message_handler(commands='start')
 async def start(message):
-    keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
-    button_1 = KeyboardButton('Рассчитать')
-    button_2 = KeyboardButton('Информация')
-    keyboard.row(button_1, button_2)
     await message.answer('Привет! Я бот помогающий твоему здоровью.', reply_markup=keyboard)
 
 
 @dp.message_handler(text='Рассчитать')
 async def set_age(message):
-    await message.answer('Введите свой возраст:')
+    await message.answer('Введите свой возраст:', reply_markup=None)
     await UserState.age.set()
 
 
@@ -50,7 +51,7 @@ async def send_calories(message, state):
     await state.update_data(weight=message.text)
     data = await state.get_data()
     result = 10 * int(data['weight']) + 6.25 * int(data['growth']) - 5 * int(data['age']) + 5
-    await message.answer(f'Ваша ежедневная норма составялет {int(result)} калорий в день')
+    await message.answer(f'Ваша ежедневная норма составялет {int(result)} калорий в день', reply_markup=keyboard)
 
 
 @dp.message_handler()
