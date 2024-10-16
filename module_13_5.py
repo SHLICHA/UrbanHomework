@@ -1,5 +1,6 @@
 from aiogram import Bot, Dispatcher, executor
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.dispatcher.filters.state import State, StatesGroup
 
 from api_token import TOKEN_BY_TELEGRAM
@@ -13,6 +14,15 @@ class UserState(StatesGroup):
     age = State()
     growth = State()
     weight = State()
+
+
+@dp.message_handler(commands='start')
+async def start(message):
+    keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+    button_1 = KeyboardButton('Рассчитать')
+    button_2 = KeyboardButton('Информация')
+    keyboard.row(button_1, button_2)
+    await message.answer('Привет! Я бот помогающий твоему здоровью.', reply_markup=keyboard)
 
 
 @dp.message_handler(text='Рассчитать')
@@ -41,6 +51,11 @@ async def send_calories(message, state):
     data = await state.get_data()
     result = 10 * int(data['weight']) + 6.25 * int(data['growth']) - 5 * int(data['age']) + 5
     await message.answer(f'Ваша ежедневная норма составялет {int(result)} калорий в день')
+
+
+@dp.message_handler()
+async def all_message(message):
+    await message.answer('Введите команду /start, чтобы начать общение.')
 
 
 if __name__ == '__main__':

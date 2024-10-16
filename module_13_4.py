@@ -20,11 +20,6 @@ async def start(message):
     await message.answer('Привет! Я бот помогающий твоему здоровью.')
 
 
-@dp.message_handler()
-async def all_message(message):
-    await message.answer('Введите команду /start, чтобы начать общение.')
-
-
 @dp.message_handler(text='Calories')
 async def set_age(message):
     await message.answer('Введите свой возраст:')
@@ -51,6 +46,11 @@ async def send_calories(message, state):
     data = await state.get_data()
     result = 10 * int(data['weight']) + 6.25 * int(data['growth']) - 5 * int(data['age']) + 5
     await message.answer(f'Ваша ежедневная норма составялет {int(result)} калорий в день')
+
+
+@dp.message_handler()
+async def all_message(message):
+    await message.answer('Введите команду /start, чтобы начать общение.')
 
 
 if __name__ == '__main__':
