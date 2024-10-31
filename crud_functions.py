@@ -42,6 +42,6 @@ def add_user(username, email, age):
     connection.commit()
 
 
-
-
-
+def is_included(username):
+    check = cursor.execute(f"SELECT EXISTS (SELECT * FROM Users WHERE username = ?)", (username,)).fetchone()
+    return check[0]
