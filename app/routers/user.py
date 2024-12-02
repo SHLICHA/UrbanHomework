@@ -30,7 +30,7 @@ async def user_by_id(db: Annotated[Session, Depends(get_db)], user_id: int, ):
 
 @router.get('/user_id/task')
 async def tasks_by_user_id(db: Annotated[Session, Depends(get_db)], user_id):
-    tasks = db.scalars(select(Task).where(user_id == user_id))
+    tasks = db.scalar(select(Task).where(user_id == user_id))
     if tasks is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
